@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="iso-8859-1" import="java.sql.*,net.ucanaccess.jdbc.*" %>
+<%! int cont=0; %>
  <html>
  <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -48,17 +49,22 @@ System.out.println("Error: " + e);
     return conn;
 }
 %>
-<form name="algo" action="matto.jsp" method="get">
 <%
 Connection conexion = getConnection();
    if (!conexion.isClosed()){
 out.write("OK");
- 
+ cont++;
+ String x;
+ if(cont%2 == 0){
+    x = "asc";
+ }else {
+    x = "desc";
+ }
       Statement st = conexion.createStatement();
-      ResultSet rs = st.executeQuery("select * from libros" );
+      ResultSet rs = st.executeQuery("select * from libros order by Titulo "+x );
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> Titulo </td><td>Acci�n</td></tr>");
+      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td>  <td>Acci�n</td></tr>");
       int i=1;
       while (rs.next())
       {
