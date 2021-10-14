@@ -17,7 +17,9 @@
   </tr>
  <tr>
  <td>Titulo: <input type="text" name="titulo" value="" size="50"/></td>
-
+ </tr>
+<tr>
+ <td>Autor: <input type="text" name="autor" value="" size="50"/></td>
  </tr>
  <tr><td> Seleccione una accion: <input type="radio" name="Action" value="Actualizar" /> Actualizar
  <input type="radio" name="Action" value="Eliminar" /> Eliminar
