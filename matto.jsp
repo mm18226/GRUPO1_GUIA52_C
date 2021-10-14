@@ -67,9 +67,10 @@ ls_result += " <br/>" + e.toString();
 }
 %>
 <html>
+<link href="data/pagAviso.css" rel="stylesheet" type="text/css">
 <head><title>Actualizando la Base de Datos</title></head>
 <body>
- 
+<div class="gradient-border" id="box">
 La siguiente instruccion fue ejecutada:
 <br/><br/>
 <%=ls_query%>
@@ -78,8 +79,10 @@ La siguiente instruccion fue ejecutada:
 El resultado fue:
 <br/><br/>
 <%=ls_result%>
-<br/><br/>
- 
-<a href="libros.jsp">Entre otro valor</a>
+<br/>
+<br/>
+</div>
+
+<a id="boton" href="libros.jsp">Realizar otra acción</a>
 </body>
 </html>
