@@ -66,7 +66,7 @@ out.write("OK");
       ResultSet rs = st.executeQuery("select * from libros order by Titulo "+x );
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td>  <td>Accion</td></tr>");
+      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -76,6 +76,7 @@ out.write("OK");
          out.println("<td>"+varisbn+"</td>");
          String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
          %><td><%=rs.getString("titulo") %><%
+         %><td><%=rs.getString("autor") %><%
          %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
          out.println("</tr>");
          i++;
