@@ -36,7 +36,7 @@ ls_query += " set titulo= " + "'" + ls_titulo + "'";
 ls_query += " where isbn = " + "'" + ls_isbn + "'";
 }
  
-/* Paso4) Conexi�n a la base de datos */
+/* Paso 4) Conexi�n a la base de datos */
 Connection l_dbconn = null;
  
 try {
@@ -44,7 +44,7 @@ Class.forName(ls_dbdriver);
 /*&nbsp; getConnection(URL,User,Pw) */
 l_dbconn = DriverManager.getConnection(ls_dburl,ls_usuario,ls_password);
  
-/*Creaci�n de SQL Statement */
+/* Creaci�n de SQL Statement */
 Statement l_statement = l_dbconn.createStatement();
 /* Ejecuci�n de SQL Statement */
 l_statement.execute(ls_query);
