@@ -68,10 +68,10 @@ ls_result += " <br/>" + e.toString();
 %>
 html>
 <html>
-<head><title>Updating a Database</title></head>
+<head><title>Actualizando la Base de Datos</title></head>
 <body>
  
-La siguiente instrucci�n fue ejecutada:
+La siguiente instruccion fue ejecutada:
 <br/><br/>
 <%=ls_query%>
 <br/><br/>

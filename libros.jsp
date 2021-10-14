@@ -11,11 +11,11 @@
 <form action="matto.jsp" method="post" name="Actualizar">
  <table>
  <tr>
- <td>ISBN<input type="text" name="isbn" value="" size="40"/>
+ <td>ISBN: <input type="text" name="isbn" value="" size="40"/>
 </td>
   </tr>
  <tr>
- <td>T�tulo<input type="text" name="titulo" value="" size="50"/></td>
+ <td>Titulo: <input type="text" name="titulo" value="" size="50"/></td>
  
  </tr>
  <tr><td> Action <input type="radio" name="Action" value="Actualizar" /> Actualizar
@@ -64,7 +64,7 @@ out.write("OK");
       ResultSet rs = st.executeQuery("select * from libros order by Titulo "+x );
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td>  <td>Acci�n</td></tr>");
+      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td>  <td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
