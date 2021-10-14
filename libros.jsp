@@ -3,10 +3,11 @@
  <html>
  <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="data/pagPrincipal.css" rel="stylesheet" type="text/css">
  <title>Actualizar, Eliminar, Crear registros.</title>
  </head>
  <body>
-
+<div class="container">
 <H1>MANTENIMIENTO DE LIBROS</H1>
 <form action="matto.jsp" method="post" name="Actualizar">
  <table>
@@ -16,9 +17,9 @@
   </tr>
  <tr>
  <td>Titulo: <input type="text" name="titulo" value="" size="50"/></td>
- 
+
  </tr>
- <tr><td> Action <input type="radio" name="Action" value="Actualizar" /> Actualizar
+ <tr><td> Seleccione una accion: <input type="radio" name="Action" value="Actualizar" /> Actualizar
  <input type="radio" name="Action" value="Eliminar" /> Eliminar
  <input type="radio" name="Action" value="Crear" checked /> Crear
   </td>
@@ -30,6 +31,7 @@
  </table>
  </form>
 <br><br>
+ 
 <%!
 public Connection getConnection() throws SQLException {
 String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
@@ -85,4 +87,5 @@ out.write("OK");
 }
 
 %>
+</div>
  </body>
