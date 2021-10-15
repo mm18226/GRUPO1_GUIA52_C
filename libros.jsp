@@ -96,7 +96,7 @@ Buscar autor: <input id="autorB" type="text" name="bAutor" value="" placeholder=
 </tr>
 <tr>
 <td>
-<input  id="botonB" class="botonB" type="submit" name="buscar" value="BUSCAR"  disabled="   true"/>
+<input  id="botonB" class="botonB" type="submit" name="buscar" value="BUSCAR"  disabled="true"/>
 </td>
 </tr>
 </table>
@@ -128,12 +128,12 @@ System.out.println("Error: " + e);
 <%
 
 %>
-
+<!-- Buscar-->
 <%
 String tituloB=request.getParameter("bTitulo");
 String autorB=request.getParameter("bAutor");
 String isbnB=request.getParameter("bIsbn");
-if(isbnB != null)
+if(isbnB != null || tituloB !=null || autorB != null)
 {
 
 Connection conexionB = getConnection();
@@ -147,7 +147,7 @@ out.write("OK");
     x = "desc";
  }
       Statement st = conexionB.createStatement();
-      ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'%"+isbnB+ "%'");
+      ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'%"+isbnB+ "%' or titulo LIKE "+"'%"+tituloB+"%' or autor LIKE "+"'%"+autorB+"%'");
 
       // Ponemos los resultados en un table de html
       out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
@@ -175,7 +175,7 @@ out.write("OK");
 
    }
 }
-
+//Mostrar todo
 else{
 out.write("No hay libros con esos datos solicitados");
 
