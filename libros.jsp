@@ -21,6 +21,31 @@
 <tr>
  <td>Autor: <input type="text" name="autor" value="" size="50"/></td>
  </tr>
+
+ <!--Lista para lista 7-->
+
+<tr>
+   <td>
+    Seleccione La Editorial
+      <select name="editorial">   
+      <option value="Planeta">Planeta</option> 
+       <option value="Santillana">Santillana</option> 
+       <option value="Algani">Algani</option>   
+       <option value="Arcibel">Arcibel</option> 
+       <option value="Avenauta">Avenauta</option> 
+       <option value="Calambur">Calambur</option>] 
+       <option value="Renacimiento">Renacimiento</option>]
+   </select>
+   </td>
+</tr>
+<!--Fin de la lista-->
+
+<!--Textbox para año de publicacion-->
+<tr>
+ <td>Año de publicación: <input type="text" name="publicado" value="" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1"  /></td>
+ </tr>
+<!--Fin para año de publicacion-->
+
  <tr><td> Seleccione una accion: <input type="radio" name="Action" value="Actualizar" /> Actualizar
  <input type="radio" name="Action" value="Eliminar" /> Eliminar
  <input type="radio" name="Action" value="Crear" checked /> Crear
@@ -68,7 +93,7 @@ out.write("OK");
       ResultSet rs = st.executeQuery("select * from libros order by Titulo "+x );
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Accion</td></tr>");
+      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -79,6 +104,8 @@ out.write("OK");
          String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
          %><td><%=rs.getString("titulo") %><%
          %><td><%=rs.getString("autor") %><%
+         %><td><%=rs.getString("Editorial") %><%        
+         %><td><%=rs.getString("publicado")%><%   
          %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
          out.println("</tr>");
          i++;
