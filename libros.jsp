@@ -102,23 +102,7 @@ Buscar autor: <input id="autorB" type="text" name="bAutor" value="" placeholder=
 </table>
 </form>
 
-<%
-String tituloB=request.getParameter("bTitulo");
-String autorB=request.getParameter("bAutor");
-if(tituloB!="" || autorB!=""){
 
-
-   Connection conexionB = getConnection();
-
-      Statement stB = conexionB.createStatement();
-      ResultSet rsB = stB.executeQuery("select * from libros where titulo LIKE"+"'"+ tituloB +"'" + "or autor LIKE"+"'"+autorB+"'");
-}
-else{
-
-   out.write("No se encontro resultados con esos datos");
-   }
-
-%>
 
 
 <%!
@@ -140,7 +124,61 @@ System.out.println("Error: " + e);
     return conn;
 }
 %>
+
 <%
+
+%>
+
+<%
+String tituloB=request.getParameter("bTitulo");
+String autorB=request.getParameter("bAutor");
+String isbnB=request.getParameter("bIsbn");
+if(isbnB != null)
+{
+
+Connection conexionB = getConnection();
+   if (!conexionB.isClosed()){
+out.write("OK");
+ cont++;
+ String x;
+ if(cont%2 == 0){
+    x = "asc";
+ }else {
+    x = "desc";
+ }
+      Statement st = conexionB.createStatement();
+      ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'%"+isbnB+ "%'");
+
+      // Ponemos los resultados en un table de html
+      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
+      int i=1;
+      while (rs.next())
+      {
+         out.println("<tr>");
+         out.println("<td>"+ i +"</td>");
+         String varisbn = rs.getString("isbn");
+         out.println("<td>"+varisbn+"</td>");
+         String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
+         %><td><%=rs.getString("titulo") %><%
+         %><td><%=rs.getString("autor") %><%
+         %><td><%=rs.getString("Editorial") %><%        
+         %><td><%=rs.getString("publicado")%><%   
+         %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
+         out.println("</tr>");
+         i++;
+      }
+      out.println("</table>");
+
+      // cierre de la conexion
+      conexionB.close();
+
+
+   }
+}
+
+else{
+out.write("No hay libros con esos datos solicitados");
+
 Connection conexion = getConnection();
    if (!conexion.isClosed()){
 out.write("OK");
@@ -176,6 +214,7 @@ out.write("OK");
 
       // cierre de la conexion
       conexion.close();
+   }
 }
 
 %>
