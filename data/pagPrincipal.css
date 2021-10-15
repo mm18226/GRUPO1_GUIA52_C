@@ -10,11 +10,13 @@ body {
 	font-weight: 50;
 }
 
-#container {
-	position: relative;
-	top: 100%;
+.container {
+	position: absolute;
+	left:25%;
+	/*top:110%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);*/
+	
 }
 
 table {
@@ -35,31 +37,45 @@ th {
 	text-align: left;
 }
 
-thead {
-	th {
-		background-color: #55608f;
-	}
+.buscar{
+	display: flex;
 }
 
-tbody {
-	tr {
-		&:hover {
-			background-color: rgba(255,255,255,0.3);
-		}
-	}
-	td {
-		position: relative;
-		&:hover {
-			&:before {
-				content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: -9999px;
-				bottom: -9999px;
-				background-color: rgba(255,255,255,0.2);
-				z-index: -1;
-			}
-		}
-	}
+.formB{
+	display: flex;
+	padding-left: 400px; 
 }
+
+.boton {
+	margin-left:3%;
+	 padding: 2% 2% 2% 2%;
+	 -webkit-transition-duration: 0.4s; /* Safari */
+	 transition-duration: 0.4s;
+	 background-color: #c0392f; /* Green */
+	 color: white;
+ }
+ 
+ .boton:hover {
+	 background-color: #e66f6f; /* Green */
+	 color: rgb(17, 15, 15);
+ }
+
+ .botonB {
+	margin-left: 40%;
+	 padding: 2% 2% 2% 2%;
+	 -webkit-transition-duration: 0.4s; /* Safari */
+	 transition-duration: 0.4s;
+	 background-color: #c0392f; /* Green */
+	 color: white;
+ }
+ 
+ .botonB:hover {
+	 background-color: #e66f6f; /* Green */
+	 color: rgb(17, 15, 15);
+ }
+.botonB:disabled{
+	cursor: not-allowed;
+	pointer-events: none;
+	background-color: #ccc; /* Green */
+	 color: rgb(17, 15, 15);
+ }

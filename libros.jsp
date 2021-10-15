@@ -5,6 +5,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="data/pagPrincipal.css" rel="stylesheet" type="text/css">
  <title>Actualizar, Eliminar, Crear registros.</title>
+ <!--Habilitar boton de busqueda-->
+ <script type="text/javascript">
+function HabilitarBoton() {
+   var titulo=document.getElementById("tituloB");
+   var autor=document.getElementById("autorB");
+   var isbn=document.getElementById("isbnB");
+   var boton=document.getElementById("botonB");
+
+   if(titulo.value !="" || autor.value != "" || isbn.value != ""  ){
+      boton.disabled=false;
+   }
+   else{
+      boton.disabled=true;
+   }
+}
+ </script>
  </head>
  <body>
 <div class="container">
@@ -50,7 +66,7 @@
  <input type="radio" name="Action" value="Eliminar" /> Eliminar
  <input type="radio" name="Action" value="Crear" checked /> Crear
   </td>
- <td><input type="SUBMIT" value="ACEPTAR" />
+ <td><input  class="boton" type="SUBMIT" value="ACEPTAR" />
 </td>
  </tr>
  </form>
@@ -58,7 +74,53 @@
  </table>
  </form>
 <br><br>
- 
+<!--Buscar formulario-->
+
+<form name="formbusca" action="libros.jsp" method="post">
+<table>
+<tr>
+<td>
+Buscar por ISBN: <input id="isbnB" type="text" name="bIsbn" value="" placeholder="ingrese el ISBN" onKeyUp="HabilitarBoton()"> 
+</td>
+</tr>
+<tr>
+<td>
+Buscar titulo: <input id="tituloB" type="text" name="bTitulo" value="" placeholder="ingrese un titulo" onKeyUp="HabilitarBoton()">
+</td>
+</tr>
+<br> 
+<tr>
+<td>
+Buscar autor: <input id="autorB" type="text" name="bAutor" value="" placeholder="ingrese un autor" onKeyUp="HabilitarBoton()"> 
+</td>
+</tr>
+<tr>
+<td>
+<input  id="botonB" class="botonB" type="submit" name="buscar" value="BUSCAR"  disabled="   true"/>
+</td>
+</tr>
+</table>
+</form>
+
+<%
+String tituloB=request.getParameter("bTitulo");
+String autorB=request.getParameter("bAutor");
+if(tituloB!="" || autorB!=""){
+
+
+   Connection conexionB = getConnection();
+
+      Statement stB = conexionB.createStatement();
+      ResultSet rsB = stB.executeQuery("select * from libros where titulo LIKE"+"'"+ tituloB +"'" + "or autor LIKE"+"'"+autorB+"'");
+}
+else{
+
+   out.write("No se encontro resultados con esos datos");
+   }
+
+%>
+
+
 <%!
 public Connection getConnection() throws SQLException {
 String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
