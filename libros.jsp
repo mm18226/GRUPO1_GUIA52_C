@@ -74,8 +74,8 @@ function HabilitarBoton() {
  </table>
  </form>
 <br><br>
-<!--Buscar formulario-->
 
+<!--Buscar formulario-->
 <form name="formbusca" action="libros.jsp" method="post">
 <table>
 <tr>
@@ -101,10 +101,9 @@ Buscar autor: <input id="autorB" type="text" name="bAutor" value="" placeholder=
 </tr>
 </table>
 </form>
-
-
-
-
+<!--Enlace descarga csv-->
+<a href="listado-csv.jsp" download="libros.csv">Descargar Listado</a>
+<!--Fin formulario Buscar-->
 <%!
 public Connection getConnection() throws SQLException {
 String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
@@ -128,7 +127,7 @@ System.out.println("Error: " + e);
 <%
 
 %>
-<!-- Buscar-->
+<!--Inicio java Buscar-->
 <%
 String tituloB=request.getParameter("bTitulo");
 String autorB=request.getParameter("bAutor");
@@ -147,7 +146,7 @@ out.write("OK");
     x = "desc";
  }
       Statement st = conexionB.createStatement();
-      ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'%"+isbnB+ "%' or titulo LIKE "+"'%"+tituloB+"%' or autor LIKE "+"'%"+autorB+"%'");
+      ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'"+isbnB+ "%' and titulo LIKE "+"'"+tituloB+"%' and autor LIKE "+"'"+autorB+"%'");
 
       // Ponemos los resultados en un table de html
       out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
@@ -168,6 +167,9 @@ out.write("OK");
          i++;
       }
       out.println("</table>");
+
+
+      
 
       // cierre de la conexion
       conexionB.close();
@@ -220,3 +222,4 @@ out.write("OK");
 %>
 </div>
  </body>
+ </html>
