@@ -21,6 +21,27 @@ function HabilitarBoton() {
    }
 }
  </script>
+
+ <script type="text/javascript">
+ twoTbody.addEventListener("click", escribirInputs, false);
+function actualizarAqui(event) {
+var isbnA=document.getElementById("isbnA");
+var tituloA=document.getElementById("tituloA");
+ var autorA=document.getElementById("autorA");
+ var editorialA=document.getElementById("editorialA");
+  var publicacionA=document.getElementById("publicacionA");
+
+    if (event.target.tagName == "td"){ 
+        var fila = event.target.parentNode; 
+        isbnA.value = fila.children[1].innerHTML; // toma el primer valor de la fila
+        tituloA.value = fila.children[2].innerHTML; // toma el segundo valor de la fila
+        autorA.value = fila.children[3].innerHTML; // toma el tercer valor de la fila
+        publicacionA.value = fila.children[5].innerHTML; // toma el quinto valor de la fila
+    }
+
+ }
+
+</script>
  </head>
  <body>
 <div class="container">
@@ -28,14 +49,14 @@ function HabilitarBoton() {
 <form action="matto.jsp" method="post" name="Actualizar">
  <table>
  <tr>
- <td>ISBN: <input type="text" name="isbn" value="" size="40"/>
+ <td>ISBN: <input type="text" name="isbn" id="isbnAvalue=" size="40"/>
 </td>
   </tr>
  <tr>
- <td>Titulo: <input type="text" name="titulo" value="" size="50"/></td>
+ <td>Titulo: <input type="text" name="titulo" id="tituloA" value="" size="50"/></td>
  </tr>
 <tr>
- <td>Autor: <input type="text" name="autor" value="" size="50"/></td>
+ <td>Autor: <input type="text" name="autor" id="autorA" value="" size="50"/></td>
  </tr>
 
  <!--Lista para lista 7-->
@@ -43,7 +64,7 @@ function HabilitarBoton() {
 <tr>
    <td>
     Seleccione La Editorial
-      <select name="editorial">   
+      <select name="editorial" id="editorialA">   
       <option value="Planeta">Planeta</option> 
        <option value="Santillana">Santillana</option> 
        <option value="Algani">Algani</option>   
@@ -58,7 +79,7 @@ function HabilitarBoton() {
 
 <!--Textbox para año de publicacion-->
 <tr>
- <td>Año de publicación: <input type="text" name="publicado" value="" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1"  /></td>
+ <td>Año de publicación: <input type="text" name="publicado" id="publicacionA" value="" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="1"  /></td>
  </tr>
 <!--Fin para año de publicacion-->
 
@@ -99,10 +120,21 @@ Buscar autor: <input id="autorB" type="text" name="bAutor" value="" placeholder=
 <input  id="botonB" class="botonB" type="submit" name="buscar" value="BUSCAR"  disabled="true"/>
 </td>
 </tr>
+<!--Enlace descarga csv-->
+<tr>
+<td>
+<a href="listado-csv.jsp" download="libros.csv">Descargar Listado CSV</a>
+<a href="listado-txt.jsp" download="libros.txt">Descargar Listado TXT</a>
+<a href="listado-xml.jsp" download="libros.xml">Descargar Listado XML</a>
+<br>
+<a href="listado-json.jsp" download="libros.json">Descargar Listado JSON</a>
+<a href="listado-html.jsp" download="libros.html">Descargar Listado HTML</a>
+</td>
+</tr>
 </table>
 </form>
-<!--Enlace descarga csv-->
-<a href="listado-csv.jsp" download="libros.csv">Descargar Listado</a>
+
+
 <!--Fin formulario Buscar-->
 <%!
 public Connection getConnection() throws SQLException {
@@ -122,9 +154,7 @@ System.out.println("Error: " + e);
  }
     return conn;
 }
-%>
 
-<%
 
 %>
 <!--Inicio java Buscar-->
@@ -149,7 +179,7 @@ out.write("OK");
       ResultSet rs = st.executeQuery("select * from libros where isbn LIKE "+"'"+isbnB+ "%' and titulo LIKE "+"'"+tituloB+"%' and autor LIKE "+"'"+autorB+"%'");
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
+      out.println("<table border=\"1\" id=\"tablaLibros\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -158,10 +188,10 @@ out.write("OK");
          String varisbn = rs.getString("isbn");
          out.println("<td>"+varisbn+"</td>");
          String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
-         %><td><%=rs.getString("titulo") %><%
-         %><td><%=rs.getString("autor") %><%
-         %><td><%=rs.getString("Editorial") %><%        
-         %><td><%=rs.getString("publicado")%><%   
+         %><td><%=rs.getString("titulo") %></td><%
+         %><td><%=rs.getString("autor") %></td><%
+         %><td><%=rs.getString("Editorial") %></td><%        
+         %><td><%=rs.getString("publicado")%></td><%   
          %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
          out.println("</tr>");
          i++;
@@ -195,7 +225,7 @@ out.write("OK");
       ResultSet rs = st.executeQuery("select * from libros order by Titulo "+x );
 
       // Ponemos los resultados en un table de html
-      out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
+      out.println("<table border=\"1\" id=\"tablaLibros\"><tr><td>Num.</td><td>ISBN</td><td> <a href=\"libros.jsp\">Titulo</a></td> <td>Autor</td> <td>Editorial</td><td>Publicado</td> <td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -203,12 +233,15 @@ out.write("OK");
          out.println("<td>"+ i +"</td>");
          String varisbn = rs.getString("isbn");
          out.println("<td>"+varisbn+"</td>");
-         String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
+         String urlEliminar = "matto.jsp?Action=Eliminar&isbn="+varisbn;
          %><td><%=rs.getString("titulo") %><%
          %><td><%=rs.getString("autor") %><%
          %><td><%=rs.getString("Editorial") %><%        
          %><td><%=rs.getString("publicado")%><%   
-         %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
+         %><td><a type="link" name="Action" href="<%=urlEliminar %>" value="Eliminar">Eliminar</a>
+         <a type="link" name="Action" onclick="actualizarAqui()" value="Actualizar">Actualizar </a></td><%
+
+         
          out.println("</tr>");
          i++;
       }
@@ -220,6 +253,10 @@ out.write("OK");
 }
 
 %>
+<!-- Punto 4 actualizar en misma pagina -->
+
+
+
 </div>
  </body>
  </html>

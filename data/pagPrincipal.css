@@ -79,3 +79,7 @@ th {
 	background-color: #ccc; /* Green */
 	 color: rgb(17, 15, 15);
  }
+
+ a:link {text-decoration: none }
+a:visited {color: black;  font-family: arial; text-decoration: none }
+a:hover { color: black; font-family: arial; text-decoration: none }
