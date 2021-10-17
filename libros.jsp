@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="iso-8859-1" import="java.sql.*,net.ucanaccess.jdbc.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.sql.*,net.ucanaccess.jdbc.*" %>
 <%! int cont=0; %>
  <html>
  <head>
@@ -32,7 +32,7 @@ function HabilitarBoton() {
 </td>
   </tr>
  <tr>
- <td>Titulo: <input type="text" name="titulo" id="tituloA" value="" size="50"/></td>
+ <td>Título: <input type="text" name="titulo" id="tituloA" value="" size="50"/></td>
  </tr>
 <tr>
  <td>Autor: <input type="text" name="autor" id="autorA" value="" size="50"/></td>
@@ -45,10 +45,15 @@ function HabilitarBoton() {
     Seleccione La Editorial
       <select name="editorial" id="editorialA">   
       <option value="Planeta">Planeta</option> 
+      <option value="Ediciones Akal">Ediciones Akal</option>
+      <option value="Read & Co. Classics">Read & Co. Classics</option>
+      <option value="La galera SAU">La galera SAU</option>
        <option value="Santillana">Santillana</option> 
        <option value="Algani">Algani</option>   
        <option value="Arcibel">Arcibel</option> 
        <option value="Avenauta">Avenauta</option> 
+       <option value=" Males Herbes">Males Herbes</option>
+       <option value="Debolsillo">Debolsillo</option>
        <option value="Calambur">Calambur</option>] 
        <option value="Renacimiento">Renacimiento</option>]
    </select>
@@ -85,7 +90,7 @@ Buscar por ISBN: <input id="isbnB" type="text" name="bIsbn" value="" placeholder
 </tr>
 <tr>
 <td>
-Buscar titulo: <input id="tituloB" type="text" name="bTitulo" value="" placeholder="ingrese un titulo" onKeyUp="HabilitarBoton()">
+Buscar título: <input id="tituloB" type="text" name="bTitulo" value="" placeholder="ingrese un titulo" onKeyUp="HabilitarBoton()">
 </td>
 </tr>
 <br> 
