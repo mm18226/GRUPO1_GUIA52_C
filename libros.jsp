@@ -21,27 +21,6 @@ function HabilitarBoton() {
    }
 }
  </script>
-
- <script type="text/javascript">
- twoTbody.addEventListener("click", escribirInputs, false);
-function actualizarAqui(event) {
-var isbnA=document.getElementById("isbnA");
-var tituloA=document.getElementById("tituloA");
- var autorA=document.getElementById("autorA");
- var editorialA=document.getElementById("editorialA");
-  var publicacionA=document.getElementById("publicacionA");
-
-    if (event.target.tagName == "td"){ 
-        var fila = event.target.parentNode; 
-        isbnA.value = fila.children[1].innerHTML; // toma el primer valor de la fila
-        tituloA.value = fila.children[2].innerHTML; // toma el segundo valor de la fila
-        autorA.value = fila.children[3].innerHTML; // toma el tercer valor de la fila
-        publicacionA.value = fila.children[5].innerHTML; // toma el quinto valor de la fila
-    }
-
- }
-
-</script>
  </head>
  <body>
 <div class="container">
@@ -49,7 +28,7 @@ var tituloA=document.getElementById("tituloA");
 <form action="matto.jsp" method="post" name="Actualizar">
  <table>
  <tr>
- <td>ISBN: <input type="text" name="isbn" id="isbnAvalue=" size="40"/>
+ <td>ISBN: <input type="text" name="isbn" id="isbnAvalue" value="" size="40"/>
 </td>
   </tr>
  <tr>
@@ -59,7 +38,7 @@ var tituloA=document.getElementById("tituloA");
  <td>Autor: <input type="text" name="autor" id="autorA" value="" size="50"/></td>
  </tr>
 
- <!--Lista para lista 7-->
+ <!--Lista para item 7-->
 
 <tr>
    <td>
@@ -83,14 +62,14 @@ var tituloA=document.getElementById("tituloA");
  </tr>
 <!--Fin para año de publicacion-->
 
- <tr><td> Seleccione una accion: <input type="radio" name="Action" value="Actualizar" /> Actualizar
- <input type="radio" name="Action" value="Eliminar" /> Eliminar
- <input type="radio" name="Action" value="Crear" checked /> Crear
+ <tr><td> Seleccione una accion: 
+ <input type="radio" name="Action" id="radio_actualizar" value="Actualizar" checked=false/> Actualizar
+ <input type="radio" name="Action" id="radio_eliminar" value="Eliminar" checked=false/> Eliminar
+ <input type="radio" name="Action" id="radio_crear" value="Crear" checked=true /> Crear
   </td>
  <td><input  class="boton" type="SUBMIT" value="ACEPTAR" />
 </td>
  </tr>
- </form>
  </tr>
  </table>
  </form>
@@ -184,15 +163,37 @@ out.write("OK");
       while (rs.next())
       {
          out.println("<tr>");
-         out.println("<td>"+ i +"</td>");
+         out.println("<td>"+ i +"</td>");               
          String varisbn = rs.getString("isbn");
+         String vartitulo = rs.getString("titulo");
+         String varautor =rs.getString("autor");
+         String vareditorial=rs.getString("editorial");
+         String varpublicado=rs.getString("publicado");
          out.println("<td>"+varisbn+"</td>");
-         String url = "matto.jsp?Action=Eliminar&isbn="+varisbn;
-         %><td><%=rs.getString("titulo") %></td><%
-         %><td><%=rs.getString("autor") %></td><%
-         %><td><%=rs.getString("Editorial") %></td><%        
-         %><td><%=rs.getString("publicado")%></td><%   
-         %><td><a type="link" name="action" href="<%=url %>" value="Eliminar">Eliminar</a></td><%
+         String urlEliminar = "matto.jsp?Action=Eliminar&isbn="+varisbn;
+         String urlActualizar="javascript:actualizarAqui("+varisbn+","+"'"+vartitulo+"'"+","+"'"+varautor+"'"+","+"'"+vareditorial+"'"+","+"'"+varpublicado+"'"+")";
+         
+         %>          
+         <%
+         %><td><%out.print(vartitulo);%></td><%         
+         %><td><%out.print(varautor); %></td><%
+         %><td><%out.print(vareditorial); %></td><%   
+         %><td><%out.print(varpublicado);%></td><%  
+         %>
+         <td><a type="link" name="Action" href="<%=urlEliminar%>" value="Eliminar">Eliminar</a>
+         <a type="link" name="Action" href="<%=urlActualizar%>" value="Actualizar">Actualizar</a></td>
+          <script type="text/javascript">
+                function actualizarAqui(a,b,c,d,e) { 
+               document.getElementById('radio_crear').checked="false";                         
+               document.getElementById('radio_actualizar').checked="true";
+                document.getElementById('isbnAvalue').value=a;
+                document.getElementById('tituloA').value=b;
+                document.getElementById('autorA').value=c; 
+                document.getElementById('editorialA').value=d; 
+                document.getElementById('publicacionA').value=e;            
+                                          }
+         </script> 
+         <%
          out.println("</tr>");
          i++;
       }
@@ -232,27 +233,51 @@ out.write("OK");
          out.println("<tr>");
          out.println("<td>"+ i +"</td>");
          String varisbn = rs.getString("isbn");
+         String vartitulo = rs.getString("titulo");
+         String varautor =rs.getString("autor");
+         String vareditorial=rs.getString("editorial");
+         String varpublicado=rs.getString("publicado");
+        
          out.println("<td>"+varisbn+"</td>");
          String urlEliminar = "matto.jsp?Action=Eliminar&isbn="+varisbn;
-         %><td><%=rs.getString("titulo") %><%
-         %><td><%=rs.getString("autor") %><%
-         %><td><%=rs.getString("Editorial") %><%        
-         %><td><%=rs.getString("publicado")%><%   
-         %><td><a type="link" name="Action" href="<%=urlEliminar %>" value="Eliminar">Eliminar</a>
-         <a type="link" name="Action" onclick="actualizarAqui()" value="Actualizar">Actualizar </a></td><%
-
+         String urlActualizar="javascript:actualizarAqui("+varisbn+","+"'"+vartitulo+"'"+","+"'"+varautor+"'"+","+"'"+vareditorial+"'"+","+"'"+varpublicado+"'"+")";
+         %>
+          
+         <%
+         %><td><%out.print(vartitulo);%></td><%         
+         %><td><%out.print(varautor); %></td><%
+         %><td><%out.print(vareditorial); %></td><%   
+         %><td><%out.print(varpublicado);%></td><%   
+        
+         %>
+         <td><a type="link" name="Action" href="<%=urlEliminar%>" value="Eliminar">Eliminar</a>
+         <a type="link" name="Action" href="<%=urlActualizar%>" value="Actualizar">Actualizar</a></td>
          
+         <script type="text/javascript">
+                function actualizarAqui(a,b,c,d,e) { 
+               document.getElementById('radio_crear').checked="false";                         
+               document.getElementById('radio_actualizar').checked="true";
+                document.getElementById('isbnAvalue').value=a;
+                document.getElementById('tituloA').value=b;
+                document.getElementById('autorA').value=c; 
+                document.getElementById('editorialA').value=d; 
+                document.getElementById('publicacionA').value=e;   
+                       
+                                          }
+         </script> 
+         
+         <%         
          out.println("</tr>");
          i++;
       }
       out.println("</table>");
 
+       
       // cierre de la conexion
       conexion.close();
    }
 }
-
-%>
+         %>
 <!-- Punto 4 actualizar en misma pagina -->
 
 
